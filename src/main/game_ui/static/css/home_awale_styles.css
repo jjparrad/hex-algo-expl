@@ -1,0 +1,319 @@
+html {
+    padding: 1em;
+    background-color: #01161E;
+}
+
+body {
+    margin-left: 0%;
+    margin-right: 0%;
+    padding-left: 0%;
+    padding-right: 0%;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 85vh;
+    margin-left: 5%;
+    margin-top: -4%;
+}
+
+.clickable {
+    user-select: none;
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    width: 100px;
+    height: 40px;
+    margin: 0.5%;
+    margin-top: 0.9%;
+    left: 17%;
+    top: 0%;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 40px;
+    transform: translate(-10%, 0%);
+    background-color: #22AAA1;
+    border-radius: 10px;
+    transition: transform .1s;
+    font-size: 110%;
+    font-weight: 575;
+}
+
+
+.clickable:hover {
+    background-color: #4CE0D2;
+    transform: scale(1.1) translate(-10%, 0%);
+}
+
+
+.home{
+    user-select: none;
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    width: 100px;
+    height: 40px;
+    margin: 10px;
+    padding: 0;
+    left: 0%;
+    top: 0%;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 40px;
+    transform: translate(-10%, 0%);
+    background-color: #0892A5;
+    border-radius: 10px;
+    transition: transform .1s;
+    font-size: 110%;
+    font-size: 16px;
+    color: #F2E5D7;
+
+}
+
+.home:hover {
+    background-color: #08636F;
+    transform: scale(1.1) translate(-10%, 0%);
+}
+
+
+.start_game1v1 {
+    user-select: none;
+    font-size: 20px;
+    color: #f3f396;
+    background-image: url(../images/awale.jpg);
+    display: flex;
+    direction: column;
+    vertical-align: middle;
+    background-size: contain;
+    width: 500px;
+    height: 140px;
+    margin: 40px;
+    left: 10%;
+    top: 10%;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    transform: scale(1.1) translate(-10%, 0%);
+    /*background-color: #C0C5C1;*/
+    border-radius: 10px;
+    transition: transform .1s;
+    font-size: 130%;
+    font-weight: 800;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.start_game1v1:hover {
+    transform: scale(1.2) translate(-10%, 0%);
+} 
+
+.start_gameIA{
+    user-select: none;
+    font-size: 20px;
+    color: #f3f396;
+    background-image: url(../images/awale.jpg);
+    display: flex;
+    direction: column;
+    vertical-align: middle;
+    background-size: contain;
+    width: 500px;
+    height: 140px;
+    margin: 40px;
+    left: 10%;
+    top: 10%;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    transform: scale(1.1) translate(-10%, 0%);
+    /*background-color: #C0C5C1;*/
+    border-radius: 10px;
+    transition: transform .1s;
+    font-size: 130%;
+    font-weight: 800;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.start_gameIA:hover {
+    transform: scale(1.2) translate(-10%, 0%);
+} 
+
+.start_gameIAvsIA{
+    user-select: none;
+    font-size: 20px;
+    color: #f3f396;
+    background-image: url(../images/awale.jpg);
+    display: flex;
+    direction: column;
+    vertical-align: middle;
+    background-size: contain;
+    width: 500px;
+    height: 140px;
+    margin: 40px;
+    left: 10%;
+    top: 10%;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    transform: scale(1.1) translate(-10%, 0%);
+    /*background-color: #C0C5C1;*/
+    border-radius: 10px;
+    transition: transform .1s;
+    font-size: 130%;
+    font-weight: 800;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.start_gameIAvsIA:hover {
+    transform: scale(1.2) translate(-10%, 0%);
+}
+
+#container{
+    justify-content: center;
+    flex-direction: column;
+}
+
+.titre {
+    margin: auto;
+    width: 50%;
+    padding: 10px;
+    transform: translate(0%, -10%);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+    color: #F2E5D7;
+}
+
+.color_button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    width: 80px;
+    height: 40px;
+    margin: 0 10px;
+    padding: 0;
+    line-height: 40px;
+    transform: translate(-10%, 0%);
+    background-color: #875234;
+    border-radius: 10px;
+    transition: transform .1s;
+    font-size: 95%;
+    font-weight: 575;
+}
+
+.color_button:hover {
+    background-color: #cc945b;
+    transform: scale(1.1) translate(-10%, 0%);
+}
+
+/* Ajoutez ces règles CSS dans votre fichier home_awale_styles.css */
+
+.choose_color {
+    display: row;
+    justify-content: center;
+    align-items: column;
+}
+
+.color_button {
+    display: flex;
+    margin: 10px;
+}
+
+.containeIA {
+    margin-left: 5.5%;
+    display: flex;
+    align-items: center; /* Aligne les éléments verticalement */
+}
+
+
+.selected_2{
+    background-color: #cc945b;
+}
+
+.selected_2:hover{
+    background-color: #cc945b;
+} 
+
+
+
+/* ============== fenetre regles ==========================*/
+/* Styles pour le bouton */
+#reglesBtn{
+    user-select: none;
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    width: 80px;
+    height: 40px;
+    margin: 10px;
+    padding: 0;
+    left: 0%;
+    top: 0%;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 40px;
+    transform: translate(-10%, 0%);
+    background-color: #0892A5;
+    border-radius: 10px;
+    transition: transform .1s;
+    font-size: 110%;
+    font-size: 16px;
+    color: #DDE0BD;
+
+}
+
+#reglesBtn:hover {
+    background-color: #08636F;
+    transform: scale(1.1) translate(-10%, 0%);
+}
+
+/* Styles pour la fenêtre modale */
+.modal {
+    display: none; /* Masquer la fenêtre modale par défaut */
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.5);
+}
+
+.modal-content {
+    display: flex;
+    flex-direction: column;
+    font-size: 20px;
+    background-color: #0892A5;
+    border-radius: 10px;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    position: relative;
+}
+
+.regles-content{
+    display: flex;
+    flex-direction: column;
+    float: left;
+    width: 100%;
+}
+
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}

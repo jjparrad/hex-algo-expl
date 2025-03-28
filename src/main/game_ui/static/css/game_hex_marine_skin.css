@@ -1,0 +1,146 @@
+body {
+    color: #394355;
+    user-select: none;
+    margin-left: 0%;
+    margin-right: 0%;
+    padding-left: 0%;
+    padding-right: 0%;
+    
+}
+
+html {
+    padding: 1em;
+    /*background-color: #090806;*/
+    background-color: #EADFB4;
+}
+
+
+
+[data-flex] {
+    display: flex;
+}
+
+.header {
+    margin: auto;
+    display: flex;
+}
+
+.hex {
+    padding: 0px;
+    filter: drop-shadow(-1px -1px 1px black);
+    background: #ADBBC6 linear-gradient(to bottom left, rgba(0, 0, 0, 0.2), transparent, rgba(255, 255, 255, 0.3));
+    width: 50px;
+    height: 58px;
+    clip-path: polygon(0% 25%, 0% 75%, 50% 100%, 100% 75%, 100% 25%, 50% 0%);
+    margin: -6px 0 -6px 0;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.hex-player1-hover:hover {
+    background-color: #5197BA;
+}
+
+.hex-player2-hover:hover {
+    background-color: #F6995C;
+}
+
+.cal {
+    margin: -6px;
+    width: 35px;
+    height: 40px;
+    background-color: transparent;
+    display: inline-block;
+}
+
+#game-container {
+    display: flex;
+
+}
+
+#hex-grid {
+    flex-grow: 1;
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#side-panel {
+    flex-grow: 1;
+    width: 200px;
+    /* Adjust as needed */
+    margin-left: 20px;
+}
+
+
+.back_button {
+    cursor: pointer;
+    display: inline-block;
+    width: 100px;
+    height: 40px;
+    margin: 10px;
+    padding: 0;
+    left: 10%;
+    top: 0%;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 40px;
+    transform: translate(-10%, 0%);
+    background-color: #0892A5;
+    border-radius: 10px;
+    transition: transform .1s;
+}
+
+
+.back_button:hover {
+    background-color: #08636F;
+    transform: scale(1.1) translate(-10%, 0%);
+}
+
+.titre {
+    margin-left: 30%;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+    height: 15vh;
+}
+
+#spinner {
+    margin-left: 10px; /* Add some space between the spinner and the buttons */
+}
+
+.loader {
+    border: 8px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 8px solid #3498db;
+    width: 40px;
+    height: 40px;
+    -webkit-animation: spin 2s linear infinite; /* Safari */
+    animation: spin 2s linear infinite;
+}
+
+@-webkit-keyframes spin {
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.hexgame {
+    margin: auto;
+    width: 50%;
+    /*border: 3px solid green;*/
+    padding: 10px;
+    transform: translate(0%, -10%);
+}
+
+#hidden_data_blue{
+    background-color: rgb(19, 111, 99);
+}
+
+#hidden_data_red{
+    background-color: rgb(76, 224, 210);
+}

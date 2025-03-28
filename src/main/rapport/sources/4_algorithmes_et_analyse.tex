@@ -1,0 +1,137 @@
+\section{Moteur de jeux combinatoires abstraits et algorithmes}
+
+
+% présenter les principaux algorithmes utilisés comme moteur de jeu combinatoires absrtaits
+%methode de monte carlo
+%min max
+
+
+% evaluer la complexité théorique en temps des algorithmes présentés.
+
+Implémenter un algorithme pour jouer à des jeux combinatoires contre l'ordinateur est l'un des objectifs principaux du projet. 
+Néanmoins, plusieurs questions naturelles ont alors vu le jour lors de notre travail: quels sont les algorithmes qui permettent à un ordinateur
+de jouer à un jeu combinatoire abstrait? Quels sont leurs points forts et points faibles? Dans cette section, nous allons
+présenter deux algorithmes principaux qui aident à répondre à ces questions: la recherche arborescente \emph{Monte-Carlo} (Monte-carlo Tree Search) 
+et l'algorithme \emph{MinMax} avec élagage alpha-bêta.
+
+\subsection{La recherche arborescente Monte-Carlo}
+
+\subsubsection{Présentation}
+La recherche arborescente \emph{Monte-Carlo} ou \emph{Monte-Carlo} (MCTS) est un algorithme de recherche heuristique.
+Il est principalement utilisé dans le cadre de mise en place d'intelligence artificielle pour des jeux tels que le go, mais pas uniquement.
+En effet, il peut aussi être utilisé pour les moteurs de jeux des échecs comme le moteur AlphaZero de Google qui est
+l'un des leaders en termes d'intelligence de jeux aux échecs. Cet algorithme peut même être implémenté dans des jeux où le hasard 
+apparaît comme le poker.
+
+\subsubsection{MCTS --- Fonctionnement succinct}
+\emph{MCTS} est un algorithme qui explore l'arbre des possibles. La racine est la configuration initiale du jeu.
+Chaque nœud est une configuration (une situation en jeu) et ses enfants sont les configurations suivantes.\ \emph{MCTS} conserve en mémoire 
+un arbre qui correspond aux nœuds déjà explorés. Une feuille de cet arbre est soit une configuration finale (donc un des joueurs a gagné),
+soit un nœud dont aucun enfant n'a encore été exploré. Dans chaque nœud, on stocke deux nombres: le nombre de simulations gagnantes, 
+et le nombre total de simulations. 
+
+À chaque itération \emph{MCTS} va déterminer la `meilleure' feuille (celle qui a le plus de potentiel) à partir de la racine.
+Depuis cette feuille, il va créer grâce aux règles du jeu, une nouvelle feuille au hasard dont le but est d'atteindre une configuration finale.
+Dans le cas où on trouverait une configuration gagnante pour un joueur, il va incrémenter le nombre de simulations gagnantes.
+Cela vaut pour les nœuds correspondant au joueur et aussi pour les parents de la feuille qui a été créée.\@
+L'algorithme répète cette opération un certain nombre de fois avant de choisir un coup, i.e: choisir le coup qui a le plus de simulations
+gagnantes et le moins de simulations totales.
+
+%exemple.\dots
+
+
+\subsection{MinMax}
+
+\subsubsection{Présentation}
+L'algorithme \emph{MinMax}, comme \emph{MCTS}, est un algorithme décisionnel. Cependant, celui-ci s'applique sur des jeux à somme nulle: c'est-à-dire
+un jeu où la somme des gains et des pertes de tous les joueurs est égale à 0. Ainsi, le gain de l'un constitue 
+obligatoirement une perte pour l'autre. L'algorithme va utiliser cette propriété dans sa recherche pour trouver le meilleur coup possible.
+En effet, l'ordinateur va passer en revue toutes les configurations possibles pour un nombre limité de coups (que l'on appellera profondeur), 
+et leur assigner une valeur qui prend en compte les bénéfices pour le joueur et pour son adversaire. Le meilleur coup est alors celui qui 
+minimise les pertes du joueur, tout en supposant que l'adversaire cherche au contraire à les maximiser (d'où le nom \emph{MinMax}).
+
+\subsubsection{MinMax --- Fonctionnement succinct}
+Comme le \emph{MCTS}, le \emph{MinMax} va explorer l'arbre des possibles où chaque nœud représente une configuration du jeu. 
+L'algorithme va explorer toutes les possibilités et associer à chaque feuille une valeur positive ou négative. Ces feuilles sont
+soit des nœuds terminaux (c'est-à-dire que l'un des deux joueurs a gagné), soit des nœuds à la profondeur de recherche maximale.
+Un nœud va se voir assigner une valeur positive si la position associée favorise l'ordinateur (le joueur maximisant) 
+et négative dans le cas contraire.
+
+En ce qui concerne les nœuds feuilles non-terminaux, c'est-à-dire ceux représentant une configuration de jeu non gagnante, mais bloqués par la 
+profondeur de recherche, c'est une fonction d'évaluation qui va estimer leur valeur heuristique. La qualité de cette fonction va 
+déterminer ``l'intelligence'' de l'ordinateur. Cette estimation et la profondeur de recherche déterminent donc la qualité et la 
+précision du résultat final du \emph{MinMax}.
+
+Les nœuds qui ne sont pas des feuilles vont hériter d'une des valeurs de leurs enfants en fonction de s'ils sont le minimisant, ou le maximisant.
+Si le rôle du nœud est de maximiser sa valeur, alors celui-ci va recevoir la plus grande valeur associée à ses fils. Sinon, son rôle est de 
+minimiser sa valeur, et donc il va recevoir la plus petite valeur associée à ses fils.
+Ainsi, les nœuds conduisant à un résultat favorable, comme une victoire pour le joueur maximisant, ont des scores plus
+élevés que les nœuds plus favorables pour le joueur minimisant. Les valeurs des nœuds qui mènent à une victoire sont -inf ou + inf ou 0 en fonction de:
+la victoire, la défaite ou l'égalité pour le joueur maximisant. 
+
+
+\begin{figure}[h]
+    \begin{center}
+        \includegraphics[width=0.4\textwidth]{root/MinMax.jpeg}
+    \end{center}
+    \caption{Ici le joueur bleu cherche à maximiser ses gains avec une profondeur 4.}\label{fig:min_max}
+\end{figure}
+
+
+\subsubsection{Élagage alpha-bêta}
+L'algorithme \emph{MinMax} effectue une exploration complète de l'arbre de recherche jusqu'à un niveau donné. L'élagage alpha-bêta permet d'optimiser 
+cet algorithme sans en modifier le résultat. Pour cela, il ne réalise qu'une exploration
+partielle de l'arbre. En effet, on observe qu'il n'est pas utile d'explorer les sous-arbres qui conduisent à des valeurs
+qui ne participeront pas au calcul de la valeur associée à la racine de l'arbre. Dit autrement, l'élagage alpha-bêta n'évalue pas des nœuds
+dont on peut penser, si la fonction d'évaluation est à peu près correcte, que leur qualité sera inférieure à celle d'un nœud déjà évalué.
+
+\begin{figure}[h]
+    \begin{center}
+        \includegraphics[width=0.5\textwidth]{root/minmax_alpha_beta.png}
+    \end{center}
+    \caption{\emph{MinMax} avec élagage $\alpha$-$\beta$.}\label{fig:min_max_alpha_beta}
+\end{figure}
+
+
+Plusieurs coupures ont pu être réalisées. De gauche à droite:
+\begin{enumerate}
+    \item Le nœud MIN vient de mettre à jour sa valeur courante à 4. Celle-ci, qui ne peut que baisser, est déjà inférieure à $\alpha$=5, 
+    la valeur actuelle du nœud MAX précédent. Celui-ci cherchant la plus grande valeur possible, ne la choisira donc de toute façon pas.
+    \item Le nœud MIN vient de mettre à jour sa valeur courante à 6. Celle-ci, qui ne peut que baisser, est déjà égale à $\alpha$=6, la valeur 
+    actuelle du nœud MAX précédent. Celui-ci cherchant une valeur supérieure, il ne mettra de toute façon pas à jour sa valeur que ce nœud 
+    vaille 6 ou moins.
+    \item Le nœud MIN vient de mettre à jour sa valeur courante à 5. Celle-ci, qui ne peut que baisser, est déjà inférieure à $\alpha$=6, la valeur 
+    actuelle du nœud MAX précédent. Celui-ci cherchant la plus grande valeur possible, ne la choisira donc de toute façon pas.
+\end{enumerate}
+
+\subsubsection{Remarque}
+À l'aide de l'algorithme \emph{MinMax}, il est possible de donner une preuve de l'existence d'une stratégie gagnante au jeu du Hex notamment. Nous détaillons
+cette preuve en annexe.
+
+\subsection{Autres algorithmes}
+\subsubsection{Dijkstra et BFS}
+Dans le projet, lorsqu'un joueur gagne au Hex, nous avons décidé de mettre en valeur son chemin gagnant.
+Dans un premier temps, nous devions détecter qu'un joueur ait remporté une partie. Nous avons donc dû créer la méthode \textit{check\_winner} dont nous avons déjà parlé. Pour cela nous avons implementé l'algorithme du parcours
+en largeur (\emph{BFS}). Nous avons alors interprété le tableau dans lequel les coups des joueurs sont sauvegardés comme un graphe. Le parcous en largeur
+va générer un graphe couvrant depuis un bord. Ce graphe couvrant ne va passer que par les coups placés par un joueur. Si le graphe généré atteint le bord opposé,
+alors un chemin relie les deux bords, et donc le joueur a gagné. Nous appellons donc cette méthode à chaque fois qu'un coup est placé. Sa complexité est $O(\lvert V \rvert + \lvert E \rvert)$.
+Notons ici que nous appelons la méthode seulement sur l'arbre correspondant aux coups joués par un joueur, donc en pratique, l'appel à cet algorithme
+est très rapide.
+
+L'algorithme \emph{BFS} nous assure qu'un joueur a gagné, mais il peut exister plusieurs chemins distincts reliant les deux bords. En effet,
+il peut y avoir plusieurs points de départ (points sur l'un des bords du gagnant) et points d'arrivée (points sur le bord opposé).
+Afin d'afficher le plus court chemin, nous avons décidé d'intégrer une version modifiée de l'algorithme de \emph{Dijkstra}.
+Nous avons opté pour une solution naïve. En effet, nous appellons l'algorithme plusieurs fois (une pour chaque point de départ possible).
+Ensuite nous comparons la taille des chemins trouvés. Nous obtenons alors le plus court chemin, que l'on a choisi de mettre de jaune 
+afin de faciliter sa visualisation.
+
+À l'origine, dans le pire des cas, la complexité de l'algorithme de \emph{Dijkstra} est $O(\lvert V \rvert + \lvert E \rvert \times \log(\lvert V \rvert))$.
+Cependant, notre implémentation est plus complexe, notre algorithme possède alors une complexité de $O(n \times (\lvert V \rvert+ \lvert E \rvert\times \log(\lvert V \rvert)))$, avec n la taille de notre plateau.
+Notons que ce cas n'arrive en pratique jamais. En pratique le chemin le plus court est trouvé de façon instantanée.
+
+\begin{figure}[h]
+    \begin{center}
+        \includegraphics[width=0.5\textwidth]{root/chemin_gagnant.png}
+    \end{center}
+    \caption{Ici bleu a gagné, le chemin le plus court est trouvé}\label{fig:chemin_gagnant}
+\end{figure}
