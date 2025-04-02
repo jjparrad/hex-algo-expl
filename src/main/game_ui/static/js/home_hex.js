@@ -1,28 +1,17 @@
-var size = 11; // Valeur initiale de la variable 'size'
-var selectedDiv = div4;
-var player = 1;
+let size = 11;
+let player = 1;
+let gamemode = 1;
 
-function changeSize(newSize) {
+function changeBoardSize(newSize) {
     size = newSize;
 }
 
-function handleClick(newSize, divNumber) {
-    changeSize(newSize);
-    selectDiv(divNumber);
+function selectGamemode(selectedGamemode) {
+    gamemode = selectedGamemode;
 }
 
-
-
-function selectDiv(divNumber) {
-    if (selectedDiv !== null) {
-        // Désélectionner la div précédemment sélectionnée
-        selectedDiv.classList.remove('selected');
-        selectedDiv.classList.add('clickable');
-    }
-    // Sélectionner la nouvelle div
-    selectedDiv = document.getElementById('div' + divNumber);
-    selectedDiv.classList.remove('clickable');
-    selectedDiv.classList.add('selected');
+function startGame() {
+    submitForm(gamemode);
 }
 
 function submitForm(formNumber) {
