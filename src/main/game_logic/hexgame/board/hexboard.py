@@ -64,6 +64,12 @@ class HexBoard:
         self.board: List[List[int]] = []
         self.initialize_board()
 
+    def clone(self):
+        """Retourne une copie du plateau actuel"""
+        new_board = HexBoard(self.size)
+        new_board.board = [row[:] for row in self.board]  # Copie profonde
+        return new_board
+
 
     def initialize_board(self) -> None:
         self.board = [[0] * self.size for _ in range(self.size)]

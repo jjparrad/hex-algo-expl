@@ -2,6 +2,7 @@
 # Imports
 from flask import Flask, render_template, request, jsonify # Flask imports
 from game_logic.hexgame.board.hexboard import HexBoard # Hex imports
+from game_logic.hexgame.board.mcts import *
 from game_logic.awalegame.board.awaleboard import AwaleBoard # Awale imports
 
 
@@ -144,9 +145,13 @@ def hexiaia_place_piece():
 
     try:
         if board_hex is not None:
-
-            move_IA = board_hex.get_best_move(depth_hex,current_IA)
+            
+            mcts = HexMCTS(board_hex, simulations=10000)  # Initialiser MCTS avec le plateau
+            
+            move_IA = mcts.mcts(current_IA)  # Obtenir le meilleur coup avec MCTS
+            print("ici",move_IA)
             board_hex.place_piece(current_IA, move_IA) # Try to place the piece
+            
             iamove = "hex" + str(move_IA[0]) + "-" + str(move_IA[1])
             
             # check if current_IA won
