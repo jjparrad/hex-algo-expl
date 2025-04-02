@@ -61,7 +61,7 @@ class HexMCTS:
         """ Effectue les simulations et retourne le meilleur mouvement """
         root = MCTSNode()
         for i in range(self.simulations):
-            
+
             leaf = self.select(root)
  
 
@@ -73,6 +73,17 @@ class HexMCTS:
             result = self.simulate(leaf, player)
             
             self.backpropagate(leaf, result, player)
+
+        maxi = 0
+        best_child = root.children[0]
         
-        best_child = max(root.children, key=lambda child: child.visits)
+        for child in root.children:
+            current = child.wins / child.visits
+            print(child.move,current)
+            if (current > maxi):
+                maxi = current
+                best_child = child
+        
+
+        print("choix final",best_child.move, maxi)
         return best_child.move
