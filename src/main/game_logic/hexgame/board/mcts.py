@@ -1,92 +1,114 @@
 import math
 import random
-from typing import Tuple
+from typing import Optional
 
 class MCTSNode:
-    def __init__(self,state=None, move=None, parent=None):
-        self.state = state
-        self.move = move  # Le coup joué pour atteindre ce nœud
-        self.parent = parent  # Référence au parent
-        self.children = []  # Liste des enfants
-        self.visits = 0  # Nombre de visites
-        self.wins = 0  # Nombre de victoires
+    def __init__(self, move: Optional[tuple[int, int]] = None, parent: Optional['MCTSNode'] = None, player_to_move: Optional[int] = None):
+        self.move = move          # The move that led to this node
+        self.parent = parent      # Parent node
+        self.children = []        # Child nodes
+        self.visits = 0           # Number of times this node was visited
+        self.wins = 0             # Number of wins for this node
+        self.player_to_move = player_to_move  # Player to move next
 
-    def uct_value(self, exploration_weight=1.41):
+    def uct_value(self, exploration_weight: float = 1.41) -> float:
         if self.visits == 0:
-            return float('inf')  # Encourager l'exploration des nœuds non visités
+            return float('inf')
         return (self.wins / self.visits) + exploration_weight * math.sqrt(math.log(self.parent.visits) / self.visits)
 
-    def is_terminal(self):
-        """Retourne True si l'état du jeu à ce nœud est terminal."""
-        return self.state.is_game_over()
 
 class HexMCTS:
-    def __init__(self, board, simulations=1000):
-        self.board = board
+    def __init__(self, board, simulations: int = 1000):
+        self.board = board          # Current game state
         self.simulations = simulations
-    
-    def select(self, node):
-        """ Sélectionne le meilleur nœud basé sur UCT """
+
+    def get_node_board(self, node: MCTSNode):
+        """Reconstructs the board state for a given node"""
+        board = self.board.clone()
+        current_node = node
+        moves = []
+        players = []
+        
+        # Collect moves and players from node to root
+        while current_node.parent is not None:
+            moves.append(current_node.move)
+            players.append(current_node.parent.player_to_move)
+            current_node = current_node.parent
+        
+        # Apply moves in reverse order (from root to node)
+        for move, player in zip(reversed(moves), reversed(players)):
+            board.place_piece(player, move)
+        return board
+
+    def select(self, node: MCTSNode) -> MCTSNode:
+        """Selects node using UCT until leaf node is reached"""
         while node.children:
             node = max(node.children, key=lambda child: child.uct_value())
         return node
 
-    def expand(self, node, player):
-        """ Ajoute des enfants non explorés au nœud """
-        possible_moves = self.board.get_possible_moves()
-        for move in possible_moves:
-            child = MCTSNode(move, parent=node)
-            node.children.append(child)
-    
-    def simulate(self, node, player):
-        """ Joue une partie aléatoire à partir du nœud actuel et retourne le gagnant """
-        temp_board = self.board.clone()
+    def expand(self, node: MCTSNode):
+        """Expands node by creating all possible child states"""
+        board = self.get_node_board(node)
+        possible_moves = board.get_possible_moves()
         
-        #temp_board.place_piece(player, node.move)
-        current_player = player  # Alterne entre les joueurs
+        for move in possible_moves:
+            child_player = 3 - node.player_to_move
+            child = MCTSNode(
+                move=move,
+                parent=node,
+                player_to_move=child_player
+            )
+            node.children.append(child)
 
-
-        while temp_board.check_winner() is None:
-            
-            move = random.choice(temp_board.get_possible_moves())
-            temp_board.place_piece(current_player, move)
+    def simulate(self, node: MCTSNode) -> int:
+        """Simulates random game from node's state and returns winner"""
+        board = self.get_node_board(node)
+        current_player = node.player_to_move
+        
+        while board.check_winner() is None:
+            possible_moves = board.get_possible_moves()
+            if not possible_moves:
+                break  # No legal moves (shouldn't happen in Hex)
+            move = random.choice(possible_moves)
+            board.place_piece(current_player, move)
             current_player = 3 - current_player
+        
+        return board.check_winner()
 
-        return temp_board.check_winner()
-
-    def backpropagate(self, node, result, player):
-        """ Met à jour les statistiques en remontant dans l'arbre """
+    def backpropagate(self, node: MCTSNode, result: int, player: int):
+        """Updates statistics along the path from node to root"""
         while node is not None:
             node.visits += 1
             if result == player:
                 node.wins += 1
             node = node.parent
-    
-    def mcts(self, player):
-        """ Effectue les simulations et retourne le meilleur mouvement """
-        root = MCTSNode()
-        for i in range(self.simulations):
 
-            leaf = self.select(root)
-            if leaf.visits > 0:
-                self.expand(leaf, player)
-                leaf = random.choice(leaf.children)
-               
-            
-            result = self.simulate(leaf, player)
-            self.backpropagate(leaf, result, player)
-
-        maxi = 0.0
-        best_child = root.children[0]
-
-        for child in root.children:
-            current = child.wins / child.visits
-            #print(child.move,child.wins,child.visits,"score",current*100)
-            if (current >= maxi):
-                maxi = current
-                best_child = child
-            
+    def mcts(self, player: int) -> tuple[int, int]:
+        """Performs MCTS search and returns best move"""
+        root = MCTSNode(player_to_move=player)
         
+        for _ in range(self.simulations):
+            leaf = self.select(root)
+            
+            # Expand if not terminal state
+            if leaf.visits == 0:
+                winner = self.get_node_board(leaf).check_winner()
+                if winner is not None:
+                    self.backpropagate(leaf, winner, player)
+                    continue
+            
+            if not leaf.children:
+                self.expand(leaf)
+            
+            # Select node for simulation
+            if leaf.children:
+                selected = random.choice(leaf.children)
+            else:
+                selected = leaf  # Terminal node
+                
+            result = self.simulate(selected)
+            self.backpropagate(selected, result, player)
 
-        print("choix final",best_child.move, maxi)
-        return best_child.move
+        # Choose move with highest visit count
+        best_move = max(root.children, key=lambda child: child.visits).move
+        return best_move
