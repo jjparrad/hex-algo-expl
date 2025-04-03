@@ -80,6 +80,27 @@ def game_hexiaia():
     board_hex.display_board()  # Display the game board in the console
     return render_template('game_hexiaia.html', size=size, size_px=size_px)
 
+@app.route('/game_mcts_hexia', methods=['POST']) # Hex player vs IA page
+def game_mcts_hexia():
+    global board_hex, current_player, size_px, size, player, IA
+    player = int(request.form['player'])
+    IA = 1 if player == 2 else 2
+    size = int(request.form['size'])
+    size_px = 120 + (44 * size)  # update the size_px used in the play.html
+    board_hex = HexBoard(size)  # Create a new game board
+    board_hex.display_board()  # Display the game board in the console
+    
+    return render_template('game_mcts_hexia.html', size=size, size_px=size_px)
+
+
+@app.route('/game_mcts_hexiaia', methods=['POST']) # Hex IA vs IA page
+def game_mcts_hexiaia():
+    global board_hex, size_px, size
+    size = int(request.form['size'])
+    size_px = 120 + (44 * size)  # update the size_px used in the play.html
+    board_hex = HexBoard(size)  # Create a new game board
+    board_hex.display_board()  # Display the game board in the console
+    return render_template('game_mcts_hexiaia.html', size=size, size_px=size_px)
 
 
 @app.route('/hex_place_piece', methods=['POST']) # Player place a piece on the board
@@ -130,9 +151,41 @@ def first_move_IA_hex():
     iamove = "hex" + str(move[0]) + "-" + str(move[1])
     return jsonify({'result': 'Success','iamove':iamove})
 
-
 @app.route('/hexiaia_place_piece', methods=['POST']) # IA place a unique piece on the board
 def hexiaia_place_piece():
+    print("MINMAX")
+    global board_hex, current_IA
+
+    data = request.get_json()
+    current_IA = data['current_IA']
+
+    try:
+        if board_hex is not None:
+
+            move_IA = board_hex.get_best_move(depth_hex,current_IA)
+            board_hex.place_piece(current_IA, move_IA) # Try to place the piece
+            iamove = "hex" + str(move_IA[0]) + "-" + str(move_IA[1])
+            
+            # check if current_IA won
+            winner = board_hex.check_winner()
+            if winner:
+                short_path = board_hex.shortest_path(current_IA)
+                print(f"Shortest path for player {current_IA}: {short_path}")
+                hexid = [f"hex{i[0]}-{i[1]}" for i in short_path]
+                return jsonify({'winner': current_IA, 'game_over': True,'hexid':hexid,'iamove':iamove})
+            
+    except Exception as e:
+        # Handle the exception here
+        error_message = str(e)  # Get the error message
+        board_hex.display_board()
+        print("error: ", error_message)
+        return jsonify({'error': "An error has occured"}), 400
+        
+    return jsonify({'result': 'Success','iamove': iamove,'game_over': False})
+
+@app.route('/hexiaia_mcts_place_piece', methods=['POST']) # IA place a unique piece on the board
+def hexiaia_mcts_place_piece():
+    print("MCTS")
     global board_hex, current_IA
 
     data = request.get_json()

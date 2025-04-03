@@ -22,10 +22,16 @@ function submitForm(formNumber) {
         document.getElementById('player').value = player;
         document.getElementById('size_input_2').value = size;
         document.querySelector('form[action="/game_hexia"]').submit();
-    }
-    else if (formNumber === 3) {
+    } else if (formNumber === 3) {
         document.getElementById('size_input_3').value = size;
         document.querySelector('form[action="/game_hexiaia"]').submit();
+    } else if (formNumber === 4) {
+        document.getElementById('playerMCTS').value = player;
+        document.getElementById('size_input_4').value = size;
+        document.querySelector('form[action="/game_mcts_hexia"]').submit();
+    } else if (formNumber === 5) {
+        document.getElementById('size_input_5').value = size;
+        document.querySelector('form[action="/game_mcts_hexiaia"]').submit();
     }
 }
 

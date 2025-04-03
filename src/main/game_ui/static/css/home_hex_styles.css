@@ -27,7 +27,7 @@ button {
     border: none;
 
     border-radius: 2px;
-    background-color: #252524;
+    background-color: #202020;
     color: rgb(235, 235, 235);
     flex: 1;
     padding: 10px;
@@ -76,6 +76,7 @@ img {
 }
 
 .ui_card {
+    position: relative;
     width: 500px;
     display: flex;
     justify-content: center;
@@ -93,11 +94,17 @@ img {
     gap: 20px;
 }
 
-.board_size_container > span {
+span {
     display: block;
     color: rgb(235, 235, 235);
-    margin-bottom: 10px;
-    font-size: 18px;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.buttons_container > span {
+    margin-bottom: 5px;
+    margin-left: 15px;
+    font-size: 16px;
     font-weight: 500;
 }
 
