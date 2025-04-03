@@ -1,4 +1,4 @@
-let size = 11;
+let size = 5;
 let player = 1;
 let gamemode = 1;
 
@@ -68,3 +68,19 @@ window.onclick = function(event) {
         modal.style.display = 'none';
     }
 }
+
+const sizeButtons = document.querySelectorAll(".size_buttons > button")
+sizeButtons.forEach(button => {
+    button.addEventListener("click", () => { 
+        sizeButtons.forEach(b => b.classList.remove("selected"));
+        button.classList.add("selected");
+     });
+});
+
+const modeButtons = document.querySelectorAll(".gamemode_buttons > button")
+modeButtons.forEach(button => {
+    button.addEventListener("click", () => { 
+        modeButtons.forEach(b => b.classList.remove("selected"));
+        button.classList.add("selected");
+     });
+});

@@ -1,29 +1,104 @@
-body {
+* {
     box-sizing: border-box;
+}
+
+html, 
+body {
+    height: 100%;
+}
+
+body {
     background-color: #1c1d1a;
     margin: 0;
-    background-image: url(../images/breaking-bad-walter-white.jpg);
+    background-image: url(../images/brbd.jpg);
+    /* background-image: url(../images/breaking-bad-walter-white.jpg); */
     /* background-image: url(../images/walt_gus.webp); */
     background-repeat: no-repeat;
     background-size: cover;
+    font-family: sans-serif;
 }
 
 .nvm {
     display: none;
 }
 
-.content-container {
-    background-color: #1c1d1ab7;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+button {
+    outline: none;
+    border: none;
+
+    border-radius: 2px;
+    background-color: #252524;
+    color: rgb(235, 235, 235);
+    flex: 1;
+    padding: 10px;
+
+    font-weight: 900;
 }
 
 .play_button {
     padding: 40px;
-    background-color: #deb129;
     font-size: 24px;
+    border: 2px solid rgb(248, 198, 61);
+}
+
+button:not(.selected):hover  {
+    background-color: #9fdee4;
+    color: #252524;
+    cursor: pointer;
+}
+
+button.play_button:hover {
+    color: rgb(235, 235, 235);
+    background-color: rgb(248, 198, 61);
+    color: #252524;
+}
+
+button.selected {
+    background-color: #9fdee4;
+    color: #252524;
+    cursor: pointer;
+}
+
+img {
+    position: absolute;
+    top: 160px;
+}
+
+.content-container {
+    position: relative;
+    background-color: #1c1d1a38;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    padding: 200px;
+}
+
+.ui_card {
+    width: 500px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 20px;
+
+    background-color: #252524;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.size_buttons, .gamemode_buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.board_size_container > span {
+    display: block;
+    color: rgb(235, 235, 235);
+    margin-bottom: 10px;
+    font-size: 18px;
+    font-weight: 500;
 }
 
 /* ============== fenetre regles ==========================*/

@@ -7,54 +7,56 @@
 
   <body>
     <div class="content-container">
-      <button class="play_button" onclick="startGame()">Start game</button>
-
-      <div class="board_size_container">
-        <span>
-          Select board size
-        </span>
-        <div class="size_buttons">
-          <button onclick="changeBoardSize(5, 1)">5</button>
-          <button onclick="changeBoardSize(7, 2)">7</button>
-          <button onclick="changeBoardSize(9, 3)">9</button>
-          <button onclick="changeBoardSize(11, 4)">11</button>
-          <button onclick="changeBoardSize(13, 5)">13</button>
-          <button onclick="changeBoardSize(15, 6)">15</button>
-          <button onclick="changeBoardSize(17, 7)">17</button>
+      <img src="../static/images/hex_game.png" />
+      <div class="ui_card">
+        <button class="play_button" onclick="startGame()">Start game</button>
+        
+        <div class="gamemode_buttons">
+          <button class="selected" onclick="selectGamemode(1)">Player vs player</button>
+          <button onclick="selectGamemode(2)">Player vs IA</button>
+          <button onclick="selectGamemode(3)">IA vs IA</button>
         </div>
-      </div>
-
-      <div class="gamemode_buttons">
-        <button onclick="selectGamemode(1)">Player vs player</button>
-        <button onclick="selectGamemode(2)">Player vs IA</button>
-        <button onclick="selectGamemode(3)">IA vs IA</button>
-      </div>
-
-
-      <button id="reglesBtn">Regles</button>
-      <div id="modal" class="modal">
-        <div class="modal-content">
-          <span class="close">&times;</span>
-          <div class="regles-content">
-            <p>Le jeu de Hex est un jeu de stratégie abstrait pour deux joueurs,
-            où le joueur 1 utilise la couleur bleue et le joueur 2 utilise la couleur rouge.</p>
-
-            <p>Le but du jeu est de créer une chaîne continue d'hexagones 
-            de sa propre couleur reliant deux bords opposés du plateau : 
-            le haut et le bas pour le joueur rouge, et la gauche et la droite pour le joueur bleu.</p>
-
-            <p>Le jeu se déroule sur un plateau hexagonal de taille variable,
-            où les joueurs placent alternativement des hexagones de leur couleur sur les cases du plateau.
-            Le joueur bleu commence en plaçant un hexagone bleu sur n'importe quelle case vide du plateau. 
-            Les joueurs se relaient ensuite pour placer un hexagone de leur couleur sur une case libre du plateau,
-            et une fois placée, un hexagone ne peut plus être déplacée ou retirée du plateau.</p>
-
-            <p>La partie se termine dès qu'un joueur réussit à relier ses deux bords 
-            avec une chaîne continue de pierres de sa couleur. 
-            Le premier joueur à atteindre cet objectif est déclaré vainqueur.</p>
+        
+        <div class="board_size_container">
+          <span>
+            Select board size
+          </span>
+          <div class="size_buttons">
+            <button class="selected" onclick="changeBoardSize(5, 1)">5</button>
+            <button onclick="changeBoardSize(7)">7</button>
+            <button onclick="changeBoardSize(9)">9</button>
+            <button onclick="changeBoardSize(11)">11</button>
+            <button onclick="changeBoardSize(13)">13</button>
+            <button onclick="changeBoardSize(15)">15</button>
+            <button onclick="changeBoardSize(17)">17</button>
           </div>
-          <div class="exemple">
-            <div class="gif">  </div>
+        </div>
+
+        <button id="reglesBtn">Regles</button>
+        <div id="modal" class="modal">
+          <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="regles-content">
+              <p>Le jeu de Hex est un jeu de stratégie abstrait pour deux joueurs,
+              où le joueur 1 utilise la couleur bleue et le joueur 2 utilise la couleur rouge.</p>
+
+              <p>Le but du jeu est de créer une chaîne continue d'hexagones 
+              de sa propre couleur reliant deux bords opposés du plateau : 
+              le haut et le bas pour le joueur rouge, et la gauche et la droite pour le joueur bleu.</p>
+
+              <p>Le jeu se déroule sur un plateau hexagonal de taille variable,
+              où les joueurs placent alternativement des hexagones de leur couleur sur les cases du plateau.
+              Le joueur bleu commence en plaçant un hexagone bleu sur n'importe quelle case vide du plateau. 
+              Les joueurs se relaient ensuite pour placer un hexagone de leur couleur sur une case libre du plateau,
+              et une fois placée, un hexagone ne peut plus être déplacée ou retirée du plateau.</p>
+
+              <p>La partie se termine dès qu'un joueur réussit à relier ses deux bords 
+              avec une chaîne continue de pierres de sa couleur. 
+              Le premier joueur à atteindre cet objectif est déclaré vainqueur.</p>
+            </div>
+            <div class="exemple">
+              <div class="gif">  </div>
+            </div>
           </div>
         </div>
       </div>
