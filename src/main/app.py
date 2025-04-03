@@ -146,7 +146,7 @@ def hexiaia_place_piece():
     try:
         if board_hex is not None:
             
-            mcts = HexMCTS(board_hex, simulations=10000)  # Initialiser MCTS avec le plateau
+            mcts = HexMCTS(board_hex, simulations=1000)  # Initialiser MCTS avec le plateau
             
             move_IA = mcts.mcts(current_IA)  # Obtenir le meilleur coup avec MCTS
             print("ici",move_IA)
