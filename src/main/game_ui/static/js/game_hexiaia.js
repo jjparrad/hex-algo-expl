@@ -62,7 +62,7 @@ window.onload = async function () {
             let k = 0;
             let intervalId = setInterval(() => {
                 let hex = document.getElementById(short_path[k]);
-                hex.style.backgroundColor = '#FFD700';
+                hex.style.backgroundColor = 'rgb(29, 128, 58)';
                 k++;
                 if (k === short_path.length) {
                     clearInterval(intervalId);
@@ -87,13 +87,13 @@ window.onload = async function () {
             let color = colorelem.getAttribute("value");
             //console.log(color)
             // change the colour of the hex cell
-            hex.style.backgroundColor = color;
+            hex.style.backgroundColor = "rgb(136, 222, 236)";
         } else {
             // change the colour of the hex cell
             let colorelem = document.getElementById("hidden_data_red");
             let color = colorelem.getAttribute("value");
             // change the colour of the hex cell
-            hex.style.backgroundColor = color;
+            hex.style.backgroundColor = "rgb(242, 116, 5)";
         }
     }
 
@@ -125,8 +125,8 @@ document.addEventListener("keydown", gestionnairePressionTouche);
 function changerFichiers() {
     var Mblue = "rgb(81, 130, 155)";
     var Mred = "rgb(248, 124, 41)";
-    var blue = "rgb(41, 51, 92)";
-    var red = "rgb(165, 22, 19)";
+    var blue = "rgb(136, 222, 236)";
+    var red = "rgb(242, 116, 5)";
     var styleSheet = document.getElementById('stylesheet');
     var div1 = document.getElementById("hidden_data_red");
     var div2 = document.getElementById("hidden_data_blue");

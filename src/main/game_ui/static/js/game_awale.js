@@ -150,10 +150,10 @@ window.onload = function () {
                                 let k = 0;
                                 let intervalId = setInterval(() => {
                                     let p = tabP1[tabP1.length - k - 1];
-                                    document.getElementById(String(p)).style.backgroundColor = '#FFD700';
+                                    document.getElementById(String(p)).style.backgroundColor = 'rgb(29, 128, 58)';
                                     k++;
                                     if (k === 6) {
-                                        document.getElementById("redhole").style.backgroundColor = '#FFD700';
+                                        document.getElementById("redhole").style.backgroundColor = 'rgb(29, 128, 58)';
                                         clearInterval(intervalId);
                                     }
                                 }, 200);
@@ -162,10 +162,10 @@ window.onload = function () {
                                 let k = 0;
                                 let intervalId = setInterval(() => {
                                     let p = tabP2[k];
-                                    document.getElementById(String(p)).style.backgroundColor = '#FFD700';
+                                    document.getElementById(String(p)).style.backgroundColor = 'rgb(29, 128, 58)';
                                     k++;
                                     if (k === 6) {
-                                        document.getElementById("bluehole").style.backgroundColor = '#FFD700';
+                                        document.getElementById("bluehole").style.backgroundColor = 'rgb(29, 128, 58)';
                                         clearInterval(intervalId);
                                     }
                                 }, 200);
